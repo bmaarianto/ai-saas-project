@@ -145,7 +145,7 @@ export const generateImage = async (req, res) => {
 export const removeImageBackground = async (req, res) => {
   try {
     const { userId } = req.auth();
-    const { image } = req.file;
+    const image = req.file;
     const plan = req.plan;
 
     if (plan !== "premium") {
@@ -164,7 +164,7 @@ export const removeImageBackground = async (req, res) => {
       ],
     });
 
-    await sql` INSERT INTO creations (user_id, prompt, content, type, publish) VALUES (${userId}, 'Remove background from image', ${secure_url}, 'image')`;
+    await sql` INSERT INTO creations (user_id, prompt, content, type) VALUES (${userId}, 'Remove background from image', ${secure_url}, 'image')`;
 
     res.json({ success: true, content: secure_url });
   } catch (error) {
