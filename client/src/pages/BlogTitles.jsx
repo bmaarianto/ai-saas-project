@@ -5,7 +5,7 @@ import { useState } from "react";
 import toast from "react-hot-toast";
 import Markdown from "react-markdown";
 
-Axios.defaults.baseURL = import.meta.env.VITE_BASE_URL;
+axios.defaults.baseURL = import.meta.env.VITE_BASE_URL;
 
 const BlogTitles = () => {
   const blogCategories = [
@@ -31,7 +31,7 @@ const BlogTitles = () => {
     e.preventDefault();
     try {
       setLoading(true);
-      const prompt = `Generate a blog title for the keyboard ${input} in the category ${selectedCategory}`;
+      const prompt = `Generate a blog title for the keyword ${input} in the category ${selectedCategory}`;
       const { data } = await axios.post(
         "/api/ai/generate-blog-title",
         { prompt },
