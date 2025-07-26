@@ -177,7 +177,7 @@ export const removeImageObject = async (req, res) => {
   try {
     const { userId } = req.auth();
     const { object } = req.body;
-    const { image } = req.file;
+    const image = req.file;
     const plan = req.plan;
 
     if (plan !== "premium") {
@@ -194,7 +194,7 @@ export const removeImageObject = async (req, res) => {
       resource_type: "image",
     });
 
-    await sql` INSERT INTO creations (user_id, prompt, content, type, publish) VALUES (${userId}, ${`Removed ${object} from image`}, ${imageUrl}, 'image')`;
+    await sql` INSERT INTO creations (user_id, prompt, content, type) VALUES (${userId}, ${`Removed ${object} from image`}, ${imageUrl}, 'image')`;
 
     res.json({ success: true, content: imageUrl });
   } catch (error) {
